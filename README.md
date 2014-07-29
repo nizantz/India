@@ -2,19 +2,19 @@ Setup (on Mac OS X):
 ===================
 Install Node (http://nodejs.org/). Use HomeBrew (http://brew.sh/) to install node.
 
-#Open Terminal on Mac OS X and Run the following
+##Open Terminal on Mac OS X and Run the following
 ```haskell
 $brew install node
 ```
-#Install http-server
+##Install http-server
 ```haskell
 $npm install http-server -g
 ```
-#Incase you do not have npm you can use
+##Incase you do not have npm you can use
 ```haskell
 curl https://npmjs.org/install.sh | sh
 ```
-#Once installed you can test as given below :
+##Once installed you can test as given below :
 ```haskell
 $mkdir MyProject
 
@@ -33,10 +33,10 @@ Note : You can also test by accessing teh URL from a browser window.
 
 Getting Geo Data for India
 ============================
-1. Download the Geo Data for India (shapefiles) . Note that this would contain the undisputed part of Indian territory only.
+##Download the Geo Data for India (shapefiles) . Note that this would contain the undisputed part of Indian territory only.
 Google for IND_ADM.zip file  (http://archive.lib.msu.edu/maps/public/GISData/ OR http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
 
-2. Unzip the folder IND_ADM and this is what you should see :
+##Unzip the folder IND_ADM and this is what you should see :
 ```haskell
 ├── IND_adm0.csv
 ├── IND_adm0.dbf
@@ -61,7 +61,7 @@ Google for IND_ADM.zip file  (http://archive.lib.msu.edu/maps/public/GISData/ OR
 └── read_me.pdf
 ```
 
-3. Download the Disputed territories shape file as well (source : http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
+##Download the Disputed territories shape file as well (source : http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
    Unzip the folder IND_ADM and this is what you should see
 ```haskell
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.README.html
@@ -73,15 +73,14 @@ Google for IND_ADM.zip file  (http://archive.lib.msu.edu/maps/public/GISData/ OR
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.shx
 ```
 
-3. Now we would work with the .shp files only (SHAPE files) to convert into JSON
-
-4. For this we need the following tools installed :
-	(i) gdal (Geospatial Data Abstraction Library - http://www.gdal.org ) which would also install tool ogr2ogr (http://www.gdal.org/ogr2ogr.html)
+##Now we would work with the .shp files only (SHAPE files) to convert into JSON
+For this we need the following tools installed :
+ * gdal (Geospatial Data Abstraction Library - http://www.gdal.org ) which would also install tool ogr2ogr (http://www.gdal.org/ogr2ogr.html)
 	```haskell
 	$brew install gdal	
 	```
 
-	(ii) Install Topojson
+ * Install Topojson
 ```haskell
 	$npm install -g topojson
 ```
