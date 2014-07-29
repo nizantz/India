@@ -28,17 +28,17 @@ $http-server -p 5000 &
 
 $curl -v "http://localhost:5000/index.html"
 ```
-Note : You can also test by accessing teh URL from a browser window.
+Note : You can also test by accessing the	 URL from a browser window.
 
 
 Getting Geo Data for India
 ============================
 ##Download the Geo Data for India (shapefiles). 
 Note that this would contain the undisputed part of Indian territory only.
-Google for IND_ADM.zip file  
+Google for IND_ADM.zip file
 (http://archive.lib.msu.edu/maps/public/GISData/ OR http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
 
-##Unzip the folder IND_ADM and this is what you should see :
+*Unzip the folder IND_ADM and this is what you should see :
 ```haskell
 ├── IND_adm0.csv
 ├── IND_adm0.dbf
@@ -63,8 +63,9 @@ Google for IND_ADM.zip file
 └── read_me.pdf
 ```
 
-##Download the Disputed territories shape file as well (source : http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
-   Unzip the folder IND_ADM and this is what you should see
+##Download the Disputed territories shape file as well 
+(source : http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
+*Unzip the folder IND_ADM and this is what you should see
 ```haskell
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.README.html
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.VERSION.txt
@@ -88,7 +89,7 @@ For this we need the following tools installed :
 ```
 
 You might need to use sudo if you do get permission denied errors.
-Now we convert the SHAPE data for INDIA to JSON. Go to teh IND_ADM folder and run teh following command line :
+Now we convert the SHAPE data for INDIA to JSON. Go to the IND_ADM folder and run the following command line :
 
 ##For extracting data for India (international boundary)
 ```haskell
@@ -102,7 +103,7 @@ ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND1.json IND_adm1.shp
 ```haskell
 ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND2.json IND_adm2.shp
 ```
-#For extracting data for India with further defined boundaries
+##For extracting data for India with further defined boundaries
 ```haskell
 ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND3.json IND_adm3.shp
 ```
