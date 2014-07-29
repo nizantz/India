@@ -2,25 +2,33 @@ Setup (on Mac OS X):
 ===================
 Install Node (http://nodejs.org/). Use HomeBrew (http://brew.sh/) to install node.
 
-#Open Terminal on Mac OS X and Run the following 
+#Open Terminal on Mac OS X and Run the following
+```haskell
 $brew install node
-
+```
 #Install http-server
+```haskell
 $npm install http-server -g
-
+```
 #Incase you do not have npm you can use
+```haskell
 curl https://npmjs.org/install.sh | sh
-
+```
 #Once installed you can test as given below :
+```haskell
+$mkdir MyProject
 
-mkdir MyProject
-cd MyProject
-touch index.html
-echo "Hello World" > index.html
-http-server -p 5000 &
-curl -v "http://localhost:5000/index.html"
+$cd MyProject
 
-#You can also test by accessing teh URL from a browser window.
+$touch index.html
+
+$echo "Hello World" > index.html
+
+$http-server -p 5000 &
+
+$curl -v "http://localhost:5000/index.html"
+```
+Note : You can also test by accessing teh URL from a browser window.
 
 
 Getting Geo Data for India
@@ -28,7 +36,8 @@ Getting Geo Data for India
 1. Download the Geo Data for India (shapefiles) . Note that this would contain the undisputed part of Indian territory only.
 Google for IND_ADM.zip file  (http://archive.lib.msu.edu/maps/public/GISData/ OR http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
 
-2. Unzip the folder IND_ADM and this is what you should see 
+2. Unzip the folder IND_ADM and this is what you should see :
+```haskell
 ├── IND_adm0.csv
 ├── IND_adm0.dbf
 ├── IND_adm0.prj
@@ -50,9 +59,11 @@ Google for IND_ADM.zip file  (http://archive.lib.msu.edu/maps/public/GISData/ OR
 ├── IND_adm3.shp
 ├── IND_adm3.shx
 └── read_me.pdf
+```
 
 3. Download the Disputed territories shape file as well (source : http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
    Unzip the folder IND_ADM and this is what you should see
+```haskell
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.README.html
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.VERSION.txt
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.cpg
@@ -60,59 +71,51 @@ Google for IND_ADM.zip file  (http://archive.lib.msu.edu/maps/public/GISData/ OR
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.prj
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.shp
 ├── ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.shx
-
+```
 
 3. Now we would work with the .shp files only (SHAPE files) to convert into JSON
+
 4. For this we need the following tools installed :
 	(i) gdal (Geospatial Data Abstraction Library - http://www.gdal.org ) which would also install tool ogr2ogr (http://www.gdal.org/ogr2ogr.html)
+	```haskell
 	$brew install gdal	
-	 
-	(ii) 
-	$npm install -g topojson
+	```
 
+	(ii) Install Topojson
+```haskell
+	$npm install -g topojson
+```
 	You might need to use sudo if you do get permission denied errors.
 
 5. Now we convert the SHAPE data for INDIA to JSON. Go to teh IND_ADM folder and run teh following command line :
 
 #for India boundary 
-ogr2ogr \
-  -f GeoJSON \
-  -where "ADM0_A3 IN ('IND')" \
-  IND0.json \
-  IND_adm0.shp
-
+```haskell
+ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND0.json IND_adm0.shp
+```
 #for India state boundary 
-ogr2ogr \
-  -f GeoJSON \
-  -where "ADM0_A3 IN ('IND')" \
-  IND1.json \
-  IND_adm1.shp
-
+```haskell
+ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND1.json IND_adm1.shp
+```
 #for India district boundary 
-ogr2ogr \
-  -f GeoJSON \
-  -where "ADM0_A3 IN ('IND')" \
-  IND2.json \
-  IND_adm2.shp
-
+```haskell
+ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND2.json IND_adm2.shp
+```
 #for India detailed district boundary 
-ogr2ogr \
-  -f GeoJSON \
-  -where "ADM0_A3 IN ('IND')" \
-  IND3.json \
-  IND_adm3.shp
-
+```haskell
+ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND3.json IND_adm3.shp
+```
 All the JSON above would have data only for the undisputed territories of India
 
 6. Now we convert the SHAPE data for DISPUTED territories and extract data for India/China/Pakistan to JSON. 
 Go to the ne_10m_admin_0_disputed_areas_scale_rank_minor_islands folder and run the following command line : 
-
+```haskell
 ogr2ogr \
 	-f GeoJSON \
 	-where "sr_adm0_a3 IN ('IND','PAK','CHN')" \
 	disputed.json \
 	ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.shp
-
+```
 7. Now theres a bit of manual merging that is needed .
 Open the disputed.json file. 
 Copy all the {"type" *} , i.e. the content between '"features": [...]'
