@@ -33,8 +33,10 @@ Note : You can also test by accessing teh URL from a browser window.
 
 Getting Geo Data for India
 ============================
-##Download the Geo Data for India (shapefiles) . Note that this would contain the undisputed part of Indian territory only.
-Google for IND_ADM.zip file  (http://archive.lib.msu.edu/maps/public/GISData/ OR http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
+##Download the Geo Data for India (shapefiles). 
+Note that this would contain the undisputed part of Indian territory only.
+Google for IND_ADM.zip file  
+(http://archive.lib.msu.edu/maps/public/GISData/ OR http://www.naturalearthdata.com/downloads/10m-cultural-vectors/)
 
 ##Unzip the folder IND_ADM and this is what you should see :
 ```haskell
@@ -84,30 +86,30 @@ For this we need the following tools installed :
 ```haskell
 	$npm install -g topojson
 ```
-	You might need to use sudo if you do get permission denied errors.
 
-5. Now we convert the SHAPE data for INDIA to JSON. Go to teh IND_ADM folder and run teh following command line :
+You might need to use sudo if you do get permission denied errors.
+Now we convert the SHAPE data for INDIA to JSON. Go to teh IND_ADM folder and run teh following command line :
 
-#for India boundary 
+##For extracting data for India (international boundary)
 ```haskell
 ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND0.json IND_adm0.shp
 ```
-#for India state boundary 
+##For extracting data for India with state boundaries
 ```haskell
 ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND1.json IND_adm1.shp
 ```
-#for India district boundary 
+##For extracting data for India with district boundaries
 ```haskell
 ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND2.json IND_adm2.shp
 ```
-#for India detailed district boundary 
+#For extracting data for India with further defined boundaries
 ```haskell
 ogr2ogr -f GeoJSON -where "ADM0_A3 IN ('IND')" IND3.json IND_adm3.shp
 ```
-All the JSON above would have data only for the undisputed territories of India
+Note : All the JSON above would have data only for the undisputed territories of India
 
-6. Now we convert the SHAPE data for DISPUTED territories and extract data for India/China/Pakistan to JSON. 
-Go to the ne_10m_admin_0_disputed_areas_scale_rank_minor_islands folder and run the following command line : 
+##Now we convert the SHAPE data for DISPUTED territories and extract data for India/China/Pakistan to JSON. 
+* Go to the ne_10m_admin_0_disputed_areas_scale_rank_minor_islands folder and run the following command line : 
 ```haskell
 ogr2ogr \
 	-f GeoJSON \
@@ -115,19 +117,18 @@ ogr2ogr \
 	disputed.json \
 	ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.shp
 ```
-7. Now theres a bit of manual merging that is needed .
+* Now theres a bit of manual merging that is needed .
+```haskell
 Open the disputed.json file. 
 Copy all the {"type" *} , i.e. the content between '"features": [...]'
-
 Paste the same into '"features":[]' of IND0.json,IND1.json,IND2.json and IND3.json 
-
+```
 (Will figure out a better way to do this)
 
-8. Now you are ready to use the json files with D3.
-
+##Now we are ready to use the json files with D3.
 I will provide a TopoJson implementation details of the same later, since geoJSON files are huge.
 There is a topojson version in the source (india.html)
 
-I am greatly thankful to Mike Bostock's reference implementation -Lets make a map - "http://bost.ocks.org/mike/map/"
+*I am greatly thankful to Mike Bostock's reference implementation -Lets make a map - "http://bost.ocks.org/mike/map/"
 
 
